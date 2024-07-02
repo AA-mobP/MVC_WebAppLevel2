@@ -1,0 +1,23 @@
+﻿@using Mvc_WebApp_Level2.Models.BusinessLogic
+@model Instructor
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="card">
+    <img src="/Images/@Model.Image" alt="@Model.Image" style="max-width:300px">
+    <div class="container">
+        <h4><b>Instructor @Model.Name</b></h4>
+        <p><span class="text-info">Id:&nbsp;</span>@Model.Id</p>
+        <p><span class="text-info">Name:&nbsp;</span>@Model.Name</p>
+        <p><span class="text-info">Address:&nbsp;</span>@Model.Address</p>
+        <p><span class="text-info">Salary:&nbsp;</span>@Model.Salary</p>
+    </div>
+</div> 
+@if (ViewBag.Previous != null) {<a class="btn btn-primary" href="/Instructor/Details/@ViewBag.Previous">Previous</a>
+}
+<a class="btn btn-primary" href="/Instructor/Index">Main List</a>
+@if (ViewBag.Next != null) {<a class="btn btn-primary" href="/Instructor/Details/@ViewBag.Next">Next</a>
+}

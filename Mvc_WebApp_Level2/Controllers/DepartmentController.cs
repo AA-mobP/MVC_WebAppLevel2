@@ -2,45 +2,44 @@
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
 
-namespace MVC_WebAppLevel2.Controllers
+namespace Mvc_WebApp_Level2.Controllers
 {
-    public class InstructorController : Controller
+    public class DepartmentController : Controller
     {
-        private static clsInstructor model = new();
+        private static clsDepartment model = new();
 
         public IActionResult Index()
         {
+            //List of Departments
             model = new();
             return View(model.GetAll());
         }
-        
+
         public IActionResult Details(int id)
         {
-            Instructor instructor = model.GetOne(id);
-
+            Department department = model.GetOne(id);
+            
             ViewBag.Previous = model.GetPreviousId();
             ViewBag.Next = model.GetNextId();
 
-            return View(instructor);
+            return View(department);
         }
 
         public IActionResult Add(int id)
         {
-            ViewBag.DeptsIds = (from dept in new AppDbContext().departments
-                               select new { dept.Id, dept.Name }).ToList();
             if (id == 0)
-                return View(new Instructor());
+                return View(new Department());
             return View(model.Find(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Save(Instructor instructor)
+        public IActionResult Save(Department department)
         {
-            if (instructor.Id == 0)
-                model.Add(instructor);
+            if (department.Id == 0)
+                model.Add(department);
             else
-                model.Edit(instructor);
+                model.Edit(department);
             return RedirectToAction("Index");
         }
 

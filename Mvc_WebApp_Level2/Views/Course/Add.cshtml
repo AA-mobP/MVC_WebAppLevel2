@@ -1,0 +1,24 @@
+﻿@model Course // Id, Name, MinDegree, MaxDegree, DeptId, IctorId
+@{
+    SelectList DeptItems = new SelectList(ViewBag.DeptsIds, "Id", "Name");
+    SelectList InctorItems = new SelectList(ViewBag.InctorsIds, "Id", "Name");
+}
+<h2>Add New Course</h2>
+
+<form method="post" asp-action="Save">
+    <label class="form-control" asp-for="Name"></label>
+    <input class="form-control" asp-for="Name" />
+    <hr />
+    <label class="form-control" asp-for="MinDegree"></label>
+    <input class="form-control" asp-for="MinDegree"/>
+    <hr />
+    <label class="form-control" asp-for="MaxDegree"></label>
+    <input class="form-control" asp-for="MaxDegree" />
+    <hr />
+    <select class="form-control" asp-for="DeptId" asp-items="DeptItems"></select>
+    <hr />
+    <select class="form-control" asp-for="IctorId" asp-items="InctorItems"></select>
+    <hr />
+    <input type="hidden" asp-for="Id" />
+    <input class="form-control" type="submit" value="Save"/>
+</form>

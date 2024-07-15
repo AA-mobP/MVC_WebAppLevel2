@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mvc_WebApp_Level2.Models;
 
@@ -10,9 +11,11 @@ using Mvc_WebApp_Level2.Models;
 namespace Mvc_WebApp_Level2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240711184017_add_MaxDegreeField")]
+    partial class add_MaxDegreeField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace Mvc_WebApp_Level2.Migrations
 
                     b.HasIndex("IctorId");
 
-                    b.ToTable("courses", (string)null);
+                    b.ToTable("courses");
                 });
 
             modelBuilder.Entity("Mvc_WebApp_Level2.Models.CourseResult", b =>
@@ -77,7 +80,7 @@ namespace Mvc_WebApp_Level2.Migrations
 
                     b.HasIndex("TraineeId");
 
-                    b.ToTable("coursesResult", (string)null);
+                    b.ToTable("coursesResult");
                 });
 
             modelBuilder.Entity("Mvc_WebApp_Level2.Models.Department", b =>
@@ -98,7 +101,7 @@ namespace Mvc_WebApp_Level2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("departments", (string)null);
+                    b.ToTable("departments");
                 });
 
             modelBuilder.Entity("Mvc_WebApp_Level2.Models.Instructor", b =>
@@ -131,7 +134,7 @@ namespace Mvc_WebApp_Level2.Migrations
 
                     b.HasIndex("DeptId");
 
-                    b.ToTable("instructors", (string)null);
+                    b.ToTable("instructors");
                 });
 
             modelBuilder.Entity("Mvc_WebApp_Level2.Models.Trainee", b =>
@@ -164,7 +167,7 @@ namespace Mvc_WebApp_Level2.Migrations
 
                     b.HasIndex("DeptId");
 
-                    b.ToTable("trainees", (string)null);
+                    b.ToTable("trainees");
                 });
 
             modelBuilder.Entity("Mvc_WebApp_Level2.Models.Course", b =>

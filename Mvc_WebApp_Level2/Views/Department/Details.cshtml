@@ -1,0 +1,28 @@
+﻿@model Department //id, Name, Manager
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="card">
+    <div class="container">
+        <h4><b>@Model.Name Department</b></h4>
+        <p><span class="text-info">Id:&nbsp;</span>@Model.Id</p>
+        <p><span class="text-info">Name:&nbsp;</span>@Model.Name</p>
+        <p><span class="text-info">Manager:&nbsp;</span>@Model.Manager</p>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-8">
+        @if (ViewBag.Previous != null)
+        {
+            <a class="btn btn-primary" asp-action="Details" asp-controller="Department" asp-route-id="@ViewBag.Previous">Previous</a>
+        }
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Department">Main List</a>
+        @if (ViewBag.Next != null)
+        {
+            <a class="btn btn-primary" asp-action="Details" asp-controller="Department" asp-route-id="@ViewBag.Next">Next</a>
+        }
+    </div>
+</div>

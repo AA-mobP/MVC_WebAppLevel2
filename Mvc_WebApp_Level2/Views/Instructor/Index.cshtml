@@ -1,28 +1,37 @@
-﻿@using Mvc_WebApp_Level2.Models
-@model List<Instructor>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Instructor> //id, Name, Image, Salary, Address, DeptId
 @{
 
 }
+<div class="row">
+    <div class="col-4">
+        <a class="btn btn-primary" href="/Instructor/Add">Add New Instructor</a>
+    </div>
+</div>
+
 <table class="table table-bordered table-hover">
     <thead>
-    <th style="width: 20%">Id</th>
-    <th style="width: 20%">Name</th>
-    <th style="width: 20%">Image</th>
-    <th style="width: 20%">Salary</th>
-    <th style="width: 20%">Address</th>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Salary</th>
+            <th>Address</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (Instructor item in Model)
         {
             <tr>
-                <td style="width: 20%">@item.Id</td>
-                <td style="width: 20%">@item.Name</td>
-                <td style="width: 20%">@item.Image</td>
-                <td style="width: 20%">@item.Salary</td>
-                <td style="width: 20%">@item.Address &nbsp; <a href="/Instructor/Details/@item.Id" class="btn btn-info">Show</a></td>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td><img style="width:55px" src="/Images/@item.Image" /></td>
+                <td>@item.Salary</td>
+                <td>@item.Address</td>
+                <td>
+                    <a class="btn btn-warning" href="/Instructor/Details/@item.Id">Details</a>
+                    <a class="btn btn-success" href="/Instructor/Add/@item.Id">Edit</a>
+                    <a class="btn btn-danger" href="/Instructor/Delete/@item.Id">Delete</a>
+                </td>
             </tr>
         }
     </tbody>

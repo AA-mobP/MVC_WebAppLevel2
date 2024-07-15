@@ -1,0 +1,35 @@
+﻿@model List<Course> //id, Name, MinDegree, MaxDegree
+@{
+}
+<div class="row">
+    <div class="col-4">
+        <a class="btn btn-primary" href="/Course/Add">Add New Course</a>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>#Id</th>
+            <th>Name</th>
+            <th>Min Degree</th>
+            <th>Max Degree</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Course item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.MinDegree</td>
+                <td>@item.MaxDegree</td>
+                <td>
+                    <a class="btn btn-warning" asp-action="Details" asp-controller="Course" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-success" asp-action="Add" asp-controller="Course" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Course" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -8,6 +8,8 @@ namespace Mvc_WebApp_Level2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -25,7 +27,7 @@ namespace Mvc_WebApp_Level2
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

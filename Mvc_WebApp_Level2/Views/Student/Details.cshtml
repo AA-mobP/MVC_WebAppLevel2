@@ -1,0 +1,57 @@
+﻿@using Mvc_WebApp_Level2.Models.ViewModels
+@model stdName_stdDegree_crsName
+@inject IHttpContextAccessor httpContextAccessor
+@{
+}
+Cookies:
+<span>@httpContextAccessor.HttpContext?.Request?.Cookies["UserId"]</span>
+<span>@httpContextAccessor.HttpContext?.Request?.Cookies["UserName"]</span>
+<span>@httpContextAccessor.HttpContext?.Request?.Cookies["Password"]</span>
+<br />
+Sessions:
+<span>@httpContextAccessor?.HttpContext?.Session.GetInt32("Id")</span>
+<span>@httpContextAccessor?.HttpContext?.Session.GetString("Name")</span>
+<p>@Model.StudentName</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Student Degree</th>
+            <th>Min Course Degree</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int x = 0; x < Model.CourseNames.Count; x++)
+        {
+            <tr>
+                <td>@Model.CourseNames[x]</td>
+                <td>@Model.StudentDegrees[x]</td>
+                <td>@Model.MinDegrees[x]</td>
+                <td>
+                    @if (Model.StudentDegrees[x] > Model.MinDegrees[x])
+                    {
+                        <span class="bg-success text-dark">Success</span>
+                    }
+                    else
+                    {
+                        <span class="bg-danger text-dark">Filed</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-8">
+        @if (ViewBag.Previous != null)
+        {
+            <a class="btn btn-primary" href="/Student/Details/@ViewBag.Previous">Previous</a>
+        }
+        <a class="btn btn-primary" href="/Student/Index">Main List</a>
+        @if (ViewBag.Next != null)
+        {
+            <a class="btn btn-primary" href="/Student/Details/@ViewBag.Next">Next</a>
+        }
+    </div>
+</div>

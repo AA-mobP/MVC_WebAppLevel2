@@ -7,7 +7,6 @@ namespace Mvc_WebApp_Level2.Models
         public int Id { get; set; }
         public int Degree { get; set; }
 
-
         [ForeignKey("tblCourse")]
         public int CourseId { get; set; }
         public Course tblCourse { get; }

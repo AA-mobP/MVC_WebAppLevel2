@@ -7,6 +7,7 @@ namespace Mvc_WebApp_Level2.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int MinDegree { get; set; }
+        public int MaxDegree { get; set; }
 
         [ForeignKey("tblDepartment")]
         public int DeptId { get; set; }

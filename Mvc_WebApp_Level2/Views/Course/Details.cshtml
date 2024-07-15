@@ -1,0 +1,24 @@
+﻿@model Course // Id, Name, MinDegree, MaxDegree
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="card">
+    <div class="container">
+        <h4><b>Course @Model.Name</b></h4>
+        <p><span class="text-info">Id:&nbsp;</span>@Model.Id</p>
+        <p><span class="text-info">Name:&nbsp;</span>@Model.Name</p>
+        <p><span class="text-info">Min Degree:&nbsp;</span>@Model.MinDegree</p>
+        <p><span class="text-info">Max Degree:&nbsp;</span>@Model.MaxDegree</p>
+    </div>
+</div>
+@if (ViewBag.Previous != null)
+{
+    <a class="btn btn-primary" href="/Course/Details/@ViewBag.Previous">Previous</a>
+}
+<a class="btn btn-primary" href="/Course/Index">Main List</a>
+@if (ViewBag.Next != null)
+{
+    <a class="btn btn-primary" href="/Course/Details/@ViewBag.Next">Next</a>
+}

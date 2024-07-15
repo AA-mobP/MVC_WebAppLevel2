@@ -1,0 +1,29 @@
+﻿@model Instructor //id, Name, Image, Salary, Address, DeptId
+@{
+    SelectList DeptItems = new(ViewBag.DeptsIds, "Id", "Name");
+}
+<h2>Add New Instructor</h2>
+
+<form method="post" asp-action="Save">
+    <label class="form-control" asp-for="Name"></label>
+    <input class="form-control" asp-for="Name" />
+    <hr />
+    <label class="form-control" asp-for="Image"></label>
+    <select class="form-control" asp-for="Image">
+        <option value="Unkown.png">--select--</option>
+        <option value="male.png">Male</option>
+        <option value="female.png">Female</option>
+    </select>
+    <hr />
+    <label class="form-control" asp-for="Salary"></label>
+    <input class="form-control" asp-for="Salary" />
+    <hr />
+    <label class="form-control" asp-for="Address"></label>
+    <input class="form-control" asp-for="Address" />
+    <hr />
+    <label class="form-control" asp-for="DeptId"></label>
+    <select class="form-control" asp-for="DeptId" asp-items="DeptItems"></select>
+    <hr />
+    <input type="hidden" asp-for="Id"/>
+    <input type="submit" value="Save" class="form-control" />
+</form>

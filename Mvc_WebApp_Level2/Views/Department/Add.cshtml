@@ -9,10 +9,15 @@
 <form method="post" asp-action="Save">
     <label class="form-control" asp-for="Name"></label>
     <input class="form-control" asp-for="Name"/>
+    <span class="text-danger" asp-validation-for="Name"></span>
     <hr />
     <label class="form-control" asp-for="Manager"></label>
     <input class="form-control" asp-for="Manager"/>
+    <span class="text-danger" asp-validation-for="Manager"></span>
     <hr />
     <input type="hidden" asp-for="Id"/>
-    <input type="submit" value="Save"/>
+    <input class="form-control" type="submit" value="Save"/>
 </form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}

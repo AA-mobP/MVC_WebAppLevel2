@@ -1,0 +1,22 @@
+﻿<nav id="navbar" class="navbar">
+    <ul>
+        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+        <li><a asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+        <li class="dropdown">
+            <a asp-controller="Department" asp-action="Index">Departmen <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul><li><a asp-controller="Department" asp-action="Add">Add</a></li></ul>
+            </li>
+        <li class="dropdown">
+            <a asp-controller="Instructor" asp-action="Index">Instructor <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul><li><a asp-controller="Instructor" asp-action="Add">Add</a></li></ul>
+            </li>
+        <li class="dropdown">
+            <a asp-controller="Course" asp-action="Index">Course <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul><li><a asp-controller="Course" asp-action="Add">Add</a></li></ul>
+            </li>
+        <li class="dropdown">
+            <a asp-controller="Student" asp-action="Index">Student <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul><li><a asp-controller="Student" asp-action="Add">Add</a></li></ul>
+            </li>
+    </ul>
+</nav><!-- .navbar -->

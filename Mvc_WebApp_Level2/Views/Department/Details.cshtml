@@ -26,3 +26,91 @@
         }
     </div>
 </div>
+
+<!-- #region name -->
+
+<div class="accordion" id="mainAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" href="#" onclick="GetRelativeInstructor(@Model.Id)">
+                Relavent Instructors
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body" id="RelativeInstructors">
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" href="#" onclick="GetRelativeStudent(@Model.Id)">
+                Relavent Students
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body" id="RelativeStudent">
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" href="#" onclick="GetRelativeCourse(@Model.Id)">
+                Relative Courses
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body" id="RelativeCourses">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- #endregion -->
+@section Scripts {
+    <script>
+        function GetRelativeInstructor(deptID) {
+            console.log(deptID);
+            event.preventDefault();
+            $.ajax({
+                url: "/Instructor/RelativeInfo",
+                data: { "deptId": deptID },
+                type: "GET",
+                success: function (result) {
+                    console.log(result);
+                    document.getElementById("RelativeInstructors").innerHTML = result;
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function GetRelativeStudent(deptID) {
+            console.log(deptID);
+            event.preventDefault();
+            $.ajax({
+                url: "/Student/RelativeInfo",
+                data: { "deptId": deptID },
+                type: "GET",
+                success: function (result) {
+                    console.log(result);
+                    document.getElementById("RelativeStudent").innerHTML = result;
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function GetRelativeCourse(deptID){
+            $.ajax({
+                url: "/Course/RelativeInfo",
+                data: { "deptId": deptID },
+                type: "GET",
+                success: function (result){
+                    document.getElementById("RelativeCourses").innerHTML = result;
+                        }
+                
+                });
+        }
+        
+    </script>
+}

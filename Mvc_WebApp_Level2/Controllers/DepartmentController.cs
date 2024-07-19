@@ -6,13 +6,12 @@ namespace Mvc_WebApp_Level2.Controllers
 {
     public class DepartmentController : Controller
     {
-        private static clsDepartment model = new();
+        private clsDepartment model = new();
 
         public IActionResult Index()
         {
             //List of Departments
-            model = new();
-            return View(model.GetAll());
+            return View("List", model.GetAll());
         }
 
         public IActionResult Details(int id)
@@ -36,13 +35,19 @@ namespace Mvc_WebApp_Level2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Save(Department department)
         {
-            if (department.Id == 0)
-                model.Add(department);
-            else
-                model.Edit(department);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                if (department.Id == 0)
+                    model.Add(department);
+                else
+                    model.Edit(department);
+                return RedirectToAction("Index");
+            }
+            return View("Add");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);

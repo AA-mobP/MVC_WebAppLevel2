@@ -32,7 +32,7 @@ namespace Mvc_WebApp_Level2.Controllers
             HttpContext.Session.SetInt32("Id", 1534);
             HttpContext.Session.SetString("Name", "Session1");
             model = new();
-            return View(model.GetAll());
+            return View("List", model.GetAll());
         }
 
         public IActionResult Details(int id)//Details 
@@ -58,18 +58,31 @@ namespace Mvc_WebApp_Level2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Save(Trainee row)
         {
-            if (row.Id == 0)
-                model.Add(row);
-            else
-                model.Edit(row);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                if (row.Id == 0)
+                    model.Add(row);
+                else
+                    model.Edit(row);
+                return RedirectToAction("Index");
+            }
+            ViewBag.DeptIds = (from dept in new AppDbContext().departments
+                               select new { dept.Id, dept.Name }).ToList();
+            return View("Add", row);
+            
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult RelativeInfo(int deptId)
+        {
+            return PartialView("List", model.GetRelative(deptId));
         }
     }
 }

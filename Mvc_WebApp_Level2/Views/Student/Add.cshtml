@@ -1,15 +1,15 @@
 ﻿@model Trainee
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
 }
-<form method="post" action="/Student/Save">
+<h2>Add New Student</h2>
+<form method="post" asp-action="Save">
     <label class="form-control" asp-for="Name"></label>
     <input class="form-control" asp-for="Name" />
+    <span class="text-danger" asp-validation-for="Name"></span>
     <hr />
     <label class="form-control" asp-for="address"></label>
     <input class="form-control" asp-for="address" />
+    <span class="text-danger" asp-validation-for="address"></span>
     <hr />
     <label class="form-control" asp-for="Image"></label>
     <select class="form-control" asp-for="Image">
@@ -17,6 +17,7 @@
         <option value="male.png">Male</option>
         <option value="female.png">Female</option>
     </select>
+    <span class="text-danger" asp-validation-for="Image"></span>
     <hr />
     <label class="form-control" asp-for="Grade"></label>
     <select class="form-control" asp-for="Grade">
@@ -26,6 +27,7 @@
         <option value="3">Third</option>
         <option value="4">Fourth</option>
     </select>
+    <span class="text-danger" asp-validation-for="Grade"></span>
     <hr />
     <label class="form-control" asp-for="DeptId"></label>
     <select class="form-control" asp-for="DeptId">
@@ -35,7 +37,11 @@
             <option value="@item.Id">@item.Name</option>
         }
     </select>
+    <span class="text-danger" asp-validation-for="DeptId"></span>
     <hr />
     <input type="hidden" asp-for="Id"/>
-    <input class="form-control" type="submit" value="Submit" />
+    <input class="form-control" type="submit" value="Save" />
 </form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}

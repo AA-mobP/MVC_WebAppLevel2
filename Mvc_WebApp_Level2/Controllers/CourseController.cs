@@ -12,7 +12,7 @@ namespace Mvc_WebApp_Level2.Controllers
         public IActionResult Index()
         {
             model = new();
-            return View(model.GetAll());
+            return View("List", model.GetAll());
         }
 
         public IActionResult Details(int id) //Details
@@ -41,17 +41,33 @@ namespace Mvc_WebApp_Level2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Save(Course course)
         {
-            if (course.Id == 0)
-                model.Add(course);
-            else
-                model.Edit(course);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                if (course.Id == 0)
+                    model.Add(course);
+                else
+                    model.Edit(course);
+                return RedirectToAction("Index");
+            }
+            AppDbContext context = new();
+            ViewBag.DeptsIds = (from dept in context.departments
+                                select new { dept.Id, dept.Name }).ToList();
+            ViewBag.InctorsIds = (from inctor in context.instructors
+                                  select new { inctor.Id, inctor.Name }).ToList();
+            return View("Add", course);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult RelativeInfo(int deptId)
+        {
+            return PartialView("List", model.GetRelative(deptId));
         }
     }
 }

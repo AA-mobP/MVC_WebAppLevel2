@@ -2,9 +2,15 @@
 {
     public class clsDepartment
     {
-        private static AppDbContext context = new AppDbContext();
-        private static List<Department> departments = context.departments.ToList();
+        private AppDbContext context;
+        private List<Department> departments;
         int index;
+
+        public clsDepartment()
+        {
+            context = new AppDbContext();
+            departments = context.departments.ToList();
+        }
 
         public List<Department> GetAll()
         {

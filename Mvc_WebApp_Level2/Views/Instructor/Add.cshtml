@@ -7,23 +7,33 @@
 <form method="post" asp-action="Save">
     <label class="form-control" asp-for="Name"></label>
     <input class="form-control" asp-for="Name" />
+    <span class="text-danger" asp-validation-for="Name"></span>
     <hr />
     <label class="form-control" asp-for="Image"></label>
     <select class="form-control" asp-for="Image">
-        <option value="Unkown.png">--select--</option>
+        <option value="Unkown.png">--select Image--</option>
         <option value="male.png">Male</option>
         <option value="female.png">Female</option>
     </select>
+    <span class="text-danger" asp-validation-for="Image"></span>
     <hr />
     <label class="form-control" asp-for="Salary"></label>
     <input class="form-control" asp-for="Salary" />
+    <span class="text-danger" asp-validation-for="Salary"></span>
     <hr />
     <label class="form-control" asp-for="Address"></label>
     <input class="form-control" asp-for="Address" />
+    <span class="text-danger" asp-validation-for="Address"></span>
     <hr />
     <label class="form-control" asp-for="DeptId"></label>
-    <select class="form-control" asp-for="DeptId" asp-items="DeptItems"></select>
+    <select class="form-control" asp-for="DeptId" asp-items="DeptItems">
+        <option value="0">--Select Department--</option>
+    </select>
+    <span class="text-danger" asp-validation-for="DeptId"></span>
     <hr />
     <input type="hidden" asp-for="Id"/>
     <input type="submit" value="Save" class="form-control" />
 </form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}

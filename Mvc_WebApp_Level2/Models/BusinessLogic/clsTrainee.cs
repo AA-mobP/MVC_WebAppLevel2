@@ -7,12 +7,13 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
 {
     public class clsTrainee
     {
-        public List<Trainee> trainees { get; set; }
-        private AppDbContext context = new AppDbContext();
+        private List<Trainee> trainees;
+        private AppDbContext context;
         private int index;
 
         public clsTrainee()
         {
+            context = new AppDbContext();
             trainees = context.trainees.ToList();
         }
 
@@ -86,6 +87,11 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
                 context.trainees.Remove(trainee);
                 context.SaveChanges();
             }
+        }
+
+        public List<Trainee> GetRelative(int deptId)
+        {
+            return context.trainees.Where(t => t.DeptId == deptId).ToList();
         }
     }
 }

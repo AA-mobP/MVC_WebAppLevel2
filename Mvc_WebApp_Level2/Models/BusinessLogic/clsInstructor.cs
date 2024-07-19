@@ -4,8 +4,8 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
 {
     public class clsInstructor
     {
-        private static AppDbContext context;
-        private static List<Instructor> instructors;
+        private AppDbContext context;
+        private List<Instructor> instructors;
         int index;
         public int next {get; private set;}
         public int previous { get; private set;}
@@ -73,6 +73,11 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
                 context.instructors.Remove(instructor);
                 context.SaveChanges();
             }
+        }
+
+        public List<Instructor> GetRelative(int deptId)
+        {
+            return context.instructors.Where(m => m.DeptId == deptId).ToList();
         }
     }
 }

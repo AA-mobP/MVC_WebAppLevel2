@@ -2,7 +2,7 @@
 {
     public class clsCourse
     {
-        private static AppDbContext context;
+        private AppDbContext context;
         private List<Course> courses;
         int index;
         public clsCourse()
@@ -38,7 +38,8 @@
             return null;
         }
 
-        public Course? Find(int id) => context.courses.FirstOrDefault(c => c.Id == id);
+        public Course? Find(int id) =>
+            context.courses.FirstOrDefault(c => c.Id == id);
 
         public void Add(Course course)
         {
@@ -69,5 +70,8 @@
                 context.SaveChanges();
             }
         }
+
+        public List<Course> GetRelative(int deptId) => 
+            context.courses.Where(c => c.DeptId == deptId).ToList();
     }
 }

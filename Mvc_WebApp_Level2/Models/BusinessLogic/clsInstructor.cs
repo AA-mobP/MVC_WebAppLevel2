@@ -1,12 +1,14 @@
-﻿using System.Runtime.InteropServices;
+﻿using Mvc_WebApp_Level2.Models.Interfaces_Layer;
+using System.Runtime.InteropServices;
 
 namespace Mvc_WebApp_Level2.Models.BusinessLogic
 {
-    public class clsInstructor
+    public class clsInstructor : IclsInstructor
     {
         private AppDbContext context;
         private List<Instructor> instructors;
         int index;
+
         public int next {get; private set;}
         public int previous { get; private set;}
 
@@ -75,7 +77,7 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
             }
         }
 
-        public List<Instructor> GetRelative(int deptId)
+        public List<Instructor> GetRelativeToDepartment(int deptId)
         {
             return context.instructors.Where(m => m.DeptId == deptId).ToList();
         }

@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
 
 namespace Mvc_WebApp_Level2.Controllers
 {
     public class CourseController : Controller
     {
-        //Course Model
-        private static clsCourse model = new();
+        IclsCourse model;
+
+        public CourseController(IclsCourse _model)
+        {
+            model = _model;
+        }
 
         public IActionResult Index()
         {
-            model = new();
             return View("List", model.GetAll());
         }
 
@@ -57,8 +61,6 @@ namespace Mvc_WebApp_Level2.Controllers
             return View("Add", course);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);

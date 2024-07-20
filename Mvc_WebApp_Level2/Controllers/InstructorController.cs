@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
 
 namespace MVC_WebAppLevel2.Controllers
 {
     public class InstructorController : Controller
     {
-        private static clsInstructor model = new();
+        IclsInstructor model;
+
+        public InstructorController(IclsInstructor _model)
+        {
+            model = _model;
+        }
 
         public IActionResult Index()
         {
-            model = new();
             return View("List", model.GetAll());
         }
         
@@ -50,8 +55,6 @@ namespace MVC_WebAppLevel2.Controllers
             return View("Add", instructor);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
@@ -60,7 +63,7 @@ namespace MVC_WebAppLevel2.Controllers
 
         public IActionResult RelativeInfo(int deptId)
         {
-            return PartialView("List", model.GetRelative(deptId));
+            return PartialView("List", model.GetRelativeToDepartment(deptId));
         }
     }
 }

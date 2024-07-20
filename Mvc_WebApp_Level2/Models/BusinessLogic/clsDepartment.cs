@@ -1,6 +1,9 @@
-﻿namespace Mvc_WebApp_Level2.Models.BusinessLogic
+﻿using Microsoft.AspNetCore.Mvc;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
+
+namespace Mvc_WebApp_Level2.Models.BusinessLogic
 {
-    public class clsDepartment
+    public class clsDepartment : IclsDepartment
     {
         private AppDbContext context;
         private List<Department> departments;
@@ -39,13 +42,14 @@
             return null;
         }
 
-        public Department? Find(int id) => context.departments.FirstOrDefault(d => d.Id == id);
-
         public void Add(Department department)
         {
             context.departments.Add(department);
             context.SaveChanges();
         }
+
+        public Department? Find(int id) =>
+    context.departments.FirstOrDefault(d => d.Id == id);
 
         public void Edit(Department department)
         {

@@ -1,12 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
 
 namespace Mvc_WebApp_Level2.Controllers
 {
     public class DepartmentController : Controller
     {
-        private clsDepartment model = new();
+        IclsDepartment model;
+
+        public DepartmentController(IclsDepartment _model)
+        {
+            model = _model;
+        }
 
         public IActionResult Index()
         {
@@ -46,8 +52,6 @@ namespace Mvc_WebApp_Level2.Controllers
             return View("Add");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);

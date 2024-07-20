@@ -1,3 +1,6 @@
+using Mvc_WebApp_Level2.Models.BusinessLogic;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
+
 namespace Mvc_WebApp_Level2
 {
     public class Program
@@ -9,6 +12,10 @@ namespace Mvc_WebApp_Level2
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped<IclsDepartment, clsDepartment>();
+            builder.Services.AddScoped<IclsInstructor, clsInstructor>();
+            builder.Services.AddScoped<IclsCourse, clsCourse>();
+            builder.Services.AddScoped<IclsTrainee, clsTrainee>();
             builder.Services.AddSession();
 
             var app = builder.Build();

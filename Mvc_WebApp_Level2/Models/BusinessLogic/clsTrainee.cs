@@ -2,13 +2,14 @@
 using Mvc_WebApp_Level2.Models.ViewModels;
 using Mvc_WebApp_Level2.Models;
 using System.Linq;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
 
 namespace Mvc_WebApp_Level2.Models.BusinessLogic
 {
-    public class clsTrainee
+    public class clsTrainee : IclsTrainee
     {
-        private List<Trainee> trainees;
         private AppDbContext context;
+        private List<Trainee> trainees;
         private int index;
 
         public clsTrainee()
@@ -17,15 +18,10 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
             trainees = context.trainees.ToList();
         }
 
-        public List<Trainee> GetAll()
-        {
-            return trainees;
-        }
+        public List<Trainee> GetAll() => trainees;
 
         public stdName_stdDegree_crsName? GetOne(int id)
         {
-            //var results = context.trainees.Include(m => m.CoursesResult).ThenInclude(m => m.tblCourse).SingleOrDefault(m => m.Id == id);
-
             var v1 = context.trainees.FirstOrDefault(x => x.Id == id)?.Name;//Get Student Name
             var v2 = context.coursesResult.Where(x => x.TraineeId == id).ToList();//Get List<CourseResult>
             var arr = v2.Select(m => m.CourseId).ToList();//Get List<int> Courses Ids
@@ -64,7 +60,8 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
             context.SaveChanges();
         }
 
-        public Trainee? Find(int id) => context.trainees.FirstOrDefault(t => t.Id == id);
+        public Trainee? Find(int id) =>
+            context.trainees.FirstOrDefault(t => t.Id == id);
 
         public void Edit(Trainee arg)
         {
@@ -89,7 +86,7 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
             }
         }
 
-        public List<Trainee> GetRelative(int deptId)
+        public List<Trainee> GetRelativeDataToDepartment(int deptId)
         {
             return context.trainees.Where(t => t.DeptId == deptId).ToList();
         }

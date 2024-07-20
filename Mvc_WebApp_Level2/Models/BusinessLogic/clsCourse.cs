@@ -1,10 +1,13 @@
-﻿namespace Mvc_WebApp_Level2.Models.BusinessLogic
+﻿using Mvc_WebApp_Level2.Models.Interfaces_Layer;
+
+namespace Mvc_WebApp_Level2.Models.BusinessLogic
 {
-    public class clsCourse
+    public class clsCourse : IclsCourse
     {
         private AppDbContext context;
         private List<Course> courses;
         int index;
+
         public clsCourse()
         {
             context = new AppDbContext();
@@ -54,7 +57,7 @@
             {
                 OldCourse.Name = course.Name;
                 OldCourse.MinDegree = course.MinDegree;
-                OldCourse.MaxDegree = course.MinDegree;
+                OldCourse.MaxDegree = course.MaxDegree;
                 OldCourse.DeptId = course.DeptId;
                 OldCourse.IctorId = course.IctorId;
                 context.SaveChanges();

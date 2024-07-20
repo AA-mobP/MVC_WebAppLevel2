@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
+using Mvc_WebApp_Level2.Models.Interfaces_Layer;
 
 namespace Mvc_WebApp_Level2.Controllers
 {
     public class StudentController : Controller
     {
-        //ViewModel[id,name,
-        private static clsTrainee model = new();
+        private readonly IclsTrainee model;
+
+        public StudentController(IclsTrainee _model)
+        {
+            model = _model;
+        }
 
         public IActionResult Index()
         {
@@ -31,7 +36,6 @@ namespace Mvc_WebApp_Level2.Controllers
             };
             HttpContext.Session.SetInt32("Id", 1534);
             HttpContext.Session.SetString("Name", "Session1");
-            model = new();
             return View("List", model.GetAll());
         }
 
@@ -72,8 +76,6 @@ namespace Mvc_WebApp_Level2.Controllers
             
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
@@ -82,7 +84,7 @@ namespace Mvc_WebApp_Level2.Controllers
 
         public IActionResult RelativeInfo(int deptId)
         {
-            return PartialView("List", model.GetRelative(deptId));
+            return PartialView("List", model.GetRelativeDataToDepartment(deptId));
         }
     }
 }

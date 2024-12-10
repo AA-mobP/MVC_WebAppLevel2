@@ -5,18 +5,39 @@
         <li class="dropdown">
             <a asp-controller="Department" asp-action="Index">Departmen <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul><li><a asp-controller="Department" asp-action="Add">Add</a></li></ul>
-            </li>
+        </li>
         <li class="dropdown">
             <a asp-controller="Instructor" asp-action="Index">Instructor <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul><li><a asp-controller="Instructor" asp-action="Add">Add</a></li></ul>
-            </li>
+        </li>
         <li class="dropdown">
             <a asp-controller="Course" asp-action="Index">Course <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul><li><a asp-controller="Course" asp-action="Add">Add</a></li></ul>
-            </li>
+        </li>
         <li class="dropdown">
             <a asp-controller="Student" asp-action="Index">Student <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul><li><a asp-controller="Student" asp-action="Add">Add</a></li></ul>
-            </li>
+        </li>
+    </ul>
+    <ul>
+        @if (User.Identity != null)
+        {
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">
+                    <a class="btn-sm btn-info" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn-sm btn-info" asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <span class="text-sm-end text-black-50">welcome @User.Identity.Name</span>
+                    <a class="btn-sm btn-info" asp-controller="Account" asp-action="Logout">Logout</a>
+                </li>
+            }
+        }
     </ul>
 </nav><!-- .navbar -->

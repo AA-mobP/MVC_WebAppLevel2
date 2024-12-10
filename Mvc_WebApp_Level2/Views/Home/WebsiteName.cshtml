@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-1">
+        <table dir="rtl" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    for (int x = 1575; x < 1610; x++)
+                    {
+                        for (int y = 1575; y < 1610; y++)
+                        {
+                            <tr>
+                                <td>@((char)x)</td>
+                                <td>@((char)y)</td>
+                                <td>ا</td>
+                                <td>ي</td>
+                                <td>ة</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1">
+        <table dir="rtl" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    for (int x = 1575; x < 1610; x++)
+                    {
+                        for (int y = 1575; y < 1610; y++)
+                        {
+                            <tr>
+                                <td>م</td>
+                                <td>ا</td>
+                                <td>@((char)x)</td>
+                                <td>@((char)y)</td>
+                                <td>ا</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

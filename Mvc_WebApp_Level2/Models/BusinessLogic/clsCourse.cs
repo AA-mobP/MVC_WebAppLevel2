@@ -8,9 +8,9 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
         private List<Course> courses;
         int index;
 
-        public clsCourse()
+        public clsCourse(AppDbContext _context)
         {
-            context = new AppDbContext();
+            context = _context;
             courses = context.courses.ToList();
         }
 

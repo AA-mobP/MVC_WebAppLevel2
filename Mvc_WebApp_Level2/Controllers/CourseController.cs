@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
 using Mvc_WebApp_Level2.Models.Interfaces_Layer;
@@ -7,11 +8,15 @@ namespace Mvc_WebApp_Level2.Controllers
 {
     public class CourseController : Controller
     {
-        IclsCourse model;
+        private readonly IclsCourse model;
+        private readonly IclsDepartment dept;
+        private readonly IclsInstructor inctor;
 
-        public CourseController(IclsCourse _model)
+        public CourseController(IclsCourse _model, IclsDepartment _dept, IclsInstructor _inctor)
         {
             model = _model;
+            dept = _dept;
+            inctor = _inctor;
         }
 
         public IActionResult Index()
@@ -29,12 +34,12 @@ namespace Mvc_WebApp_Level2.Controllers
             return View(course);
         }
 
+        [Authorize]
         public IActionResult Add(int id)
         {
-            AppDbContext context = new();
-            ViewBag.DeptsIds = (from dept in context.departments
+            ViewBag.DeptsIds = (from dept in dept.GetAll()
                                select new { dept.Id, dept.Name }).ToList();
-            ViewBag.InctorsIds = (from inctor in context.instructors
+            ViewBag.InctorsIds = (from inctor in inctor.GetAll()
                                  select new { inctor.Id, inctor.Name }).ToList();
             if (id == 0)
                 return View(new Course());
@@ -43,6 +48,7 @@ namespace Mvc_WebApp_Level2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Save(Course course)
         {
             if (ModelState.IsValid)
@@ -53,20 +59,21 @@ namespace Mvc_WebApp_Level2.Controllers
                     model.Edit(course);
                 return RedirectToAction("Index");
             }
-            AppDbContext context = new();
-            ViewBag.DeptsIds = (from dept in context.departments
+            ViewBag.DeptsIds = (from dept in dept.GetAll()
                                 select new { dept.Id, dept.Name }).ToList();
-            ViewBag.InctorsIds = (from inctor in context.instructors
+            ViewBag.InctorsIds = (from inctor in inctor.GetAll()
                                   select new { inctor.Id, inctor.Name }).ToList();
             return View("Add", course);
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RelativeInfo(int deptId)
         {
             return PartialView("List", model.GetRelative(deptId));

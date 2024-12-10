@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
 using Mvc_WebApp_Level2.Models.Interfaces_Layer;
 
@@ -12,11 +16,24 @@ namespace Mvc_WebApp_Level2
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddSession();
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer("Server=DESKTOP-ECE5S76\\SQL2022;Database=MVC_Level2;Integrated Security=True;Encrypt=False;Trust Server Certificate=True"));
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = false;
+
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<AppDbContext>();
+
             builder.Services.AddScoped<IclsDepartment, clsDepartment>();
             builder.Services.AddScoped<IclsInstructor, clsInstructor>();
             builder.Services.AddScoped<IclsCourse, clsCourse>();
             builder.Services.AddScoped<IclsTrainee, clsTrainee>();
-            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -32,7 +49,7 @@ namespace Mvc_WebApp_Level2
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
             app.MapControllerRoute(

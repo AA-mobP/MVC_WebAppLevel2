@@ -9,14 +9,17 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
         private List<Instructor> instructors;
         int index;
 
+        public clsInstructor(AppDbContext _context)
+        {
+            context = _context;
+            instructors = context.instructors.ToList();
+
+        }
+
+        
+
         public int next {get; private set;}
         public int previous { get; private set;}
-
-        public clsInstructor()
-        {
-            context = new AppDbContext();
-            instructors = context.instructors.ToList();
-        }
 
         public List<Instructor> GetAll()
         {

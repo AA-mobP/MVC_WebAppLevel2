@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
 using Mvc_WebApp_Level2.Models.Interfaces_Layer;
@@ -8,10 +9,12 @@ namespace MVC_WebAppLevel2.Controllers
     public class InstructorController : Controller
     {
         IclsInstructor model;
+        private readonly IclsDepartment dept;
 
-        public InstructorController(IclsInstructor _model)
+        public InstructorController(IclsInstructor _model, IclsDepartment _dept)
         {
             model = _model;
+            dept = _dept;
         }
 
         public IActionResult Index()
@@ -29,10 +32,11 @@ namespace MVC_WebAppLevel2.Controllers
             return View(instructor);
         }
 
+        [Authorize]
         public IActionResult Add(int id)
         {
-            ViewBag.DeptsIds = (from dept in new AppDbContext().departments
-                               select new { dept.Id, dept.Name }).ToList();
+            ViewBag.DeptsIds = (from depts in dept.GetAll()
+                               select new { depts.Id, depts.Name }).ToList();
             if (id == 0)
                 return View(new Instructor());
             return View(model.Find(id));
@@ -40,6 +44,7 @@ namespace MVC_WebAppLevel2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Save(Instructor instructor)
         {
             if (ModelState.IsValid)
@@ -50,17 +55,19 @@ namespace MVC_WebAppLevel2.Controllers
                     model.Edit(instructor);
                 return RedirectToAction("Index");
             }
-            ViewBag.DeptsIds = (from dept in new AppDbContext().departments
+            ViewBag.DeptsIds = (from dept in dept.GetAll()
                                 select new { dept.Id, dept.Name }).ToList();
             return View("Add", instructor);
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RelativeInfo(int deptId)
         {
             return PartialView("List", model.GetRelativeToDepartment(deptId));

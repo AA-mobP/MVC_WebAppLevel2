@@ -12,9 +12,9 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
         private List<Trainee> trainees;
         private int index;
 
-        public clsTrainee()
+        public clsTrainee(AppDbContext _context)
         {
-            context = new AppDbContext();
+            context = _context;
             trainees = context.trainees.ToList();
         }
 

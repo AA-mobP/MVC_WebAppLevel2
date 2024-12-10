@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
 using Mvc_WebApp_Level2.Models.Interfaces_Layer;
@@ -30,6 +31,7 @@ namespace Mvc_WebApp_Level2.Controllers
             return View(department);
         }
 
+        [Authorize]
         public IActionResult Add(int id)
         {
             if (id == 0)
@@ -39,6 +41,7 @@ namespace Mvc_WebApp_Level2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Save(Department department)
         {
             if (ModelState.IsValid)
@@ -52,6 +55,7 @@ namespace Mvc_WebApp_Level2.Controllers
             return View("Add");
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             model.Delete(id);

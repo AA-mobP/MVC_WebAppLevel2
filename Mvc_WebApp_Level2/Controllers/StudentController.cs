@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Mvc_WebApp_Level2.Models;
 using Mvc_WebApp_Level2.Models.BusinessLogic;
 using Mvc_WebApp_Level2.Models.Interfaces_Layer;
@@ -8,10 +9,12 @@ namespace Mvc_WebApp_Level2.Controllers
     public class StudentController : Controller
     {
         private readonly IclsTrainee model;
+        private readonly IclsDepartment depts;
 
-        public StudentController(IclsTrainee _model)
+        public StudentController(IclsTrainee _model, IclsDepartment _depts)
         {
             model = _model;
+            depts = _depts;
         }
 
         public IActionResult Index()
@@ -49,9 +52,10 @@ namespace Mvc_WebApp_Level2.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Add(int id)
         {
-            ViewBag.DeptIds = (from dept in new AppDbContext().departments
+            ViewBag.DeptIds = (from dept in depts.GetAll()
                                select new { dept.Id, dept.Name }).ToList();
             if (id == 0)
                 return View(new Trainee());
@@ -60,6 +64,7 @@ namespace Mvc_WebApp_Level2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Save(Trainee row)
         {
             if (ModelState.IsValid)
@@ -70,18 +75,20 @@ namespace Mvc_WebApp_Level2.Controllers
                     model.Edit(row);
                 return RedirectToAction("Index");
             }
-            ViewBag.DeptIds = (from dept in new AppDbContext().departments
+            ViewBag.DeptIds = (from dept in depts.GetAll()
                                select new { dept.Id, dept.Name }).ToList();
             return View("Add", row);
             
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             model.Delete(id);
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RelativeInfo(int deptId)
         {
             return PartialView("List", model.GetRelativeDataToDepartment(deptId));

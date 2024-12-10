@@ -9,9 +9,9 @@ namespace Mvc_WebApp_Level2.Models.BusinessLogic
         private List<Department> departments;
         int index;
 
-        public clsDepartment()
+        public clsDepartment(AppDbContext _context)
         {
-            context = new AppDbContext();
+            context = _context;
             departments = context.departments.ToList();
         }
 
